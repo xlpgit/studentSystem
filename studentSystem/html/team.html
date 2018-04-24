@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>班级管理</title>
+  <link rel="stylesheet" href="../css/cssreset.css"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+   <style type="text/css">
+        .current {
+        font-weight:bold;
+        
+        color:Black;
+        }
+    </style>
+</head>
+<body>
+  <!-- 顶栏 start -->
+  #parse("../include/header.htm")
+  <!-- 顶栏 end -->
+  <div class="main-content clearfix">
+    <!-- 主菜单 start -->
+   #parse("../include/nav.htm")
+    <!-- 主菜单 end -->
+    <!-- 主容器 start -->
+    <div class="container">
+      <h3 class="current-title">班级管理信息</h3>  
+      <div class="search-content">
+        <form action="/teamSearch.ashx">
+          <label>搜索类型：</label>
+            <select name="search" id="">
+              <option value="班级名称">班级名称</option>
+              <option value="教室号">教室号</option>
+            </select>
+            <input type="text" class="w150" name="searchText" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')"/>
+            <input type="submit" class="btn" value="查询"/>
+            <a href="/teamAdd.ashx" class="btn">新增</a>
+        </form>
+      </div>
+       <!-- 结果容器 start -->
+      
+    <!-- 表格容器 start -->
+     <div class="table-content">
+       <table class="table table-bordered">
+         <thead>
+           <tr>
+             <th>班级名称</th>
+             <th>教室号</th>
+             <th>班主任老师</th>             
+             <th>操作</th>
+           </tr>
+         </thead>
+         <tbody>
+          #foreach($p in $Data.teams) 
+           <tr>
+             <td>$p.C_NAME</td>
+             <td>$p.CLASSROME</td>
+             <td>$p.T_NAME</td>
+              <td>	      
+               <a href="/teamEdit.ashx?EditID=$p.CLASS_ID">编辑</a>
+               <!--<a href="/teamMain.ashx?DelID=$p.CLASS_ID" onclick="return confirm('是否删除该班级(该班级下的所有学生将被删除)？');">删除</a>-->
+               <a href="" onclick="dele($p.CLASS_ID)">删除</a>
+             </td>
+           </tr>  
+           #end          
+         </tbody>
+       </table>
+       <div class="page">
+        <!--<a href="" class="active">1</a><a href="">2</a><a href="">3</a><a href="">4</a><a href="">5</a>-->
+         <a href="/teamMain.ashx?PageNumber=1"><<</a>&nbsp
+        #if($Data.PageNumber>1)
+            #set($PrePageNumber = $Data.PageNumber - 1)
+        <a  href="/teamMain.ashx?PageNumber=$PrePageNumber"><</a>
+        #end
+
+        #foreach($pd in $Data.PageData)       <!--除了有数字之外，还得有链接-->
+            #if($pd.Title==$Data.PageNumber)    <!-- 选中之后显示不同的颜色-->
+            <a class="current" href="$pd.Href">$pd.Title</a>
+            #else
+             <a href="$pd.Href">$pd.Title</a>
+            #end
+         #end
+
+        #if($Data.PageNumber<$Data.pageCount)
+            #set($NextPageNumber=$Data.PageNumber+1)
+        <a href="/teamMain.ashx?PageNumber=$NextPageNumber">></a>&nbsp  
+        #end
+        <a href="/teamMain.ashx?PageNumber=$Data.PageCount">>></a>
+      </div>
+     </div>
+ <!-- 表格容器 end -->
+      </div>
+      <!-- 结果容器 end -->
+    </div>
+   
+    <!-- 底栏 Start-->
+    #parse("../include/footer.htm")
+   <!-- <div class="footer">
+  学生管理系统 @copyright 2016-2019
+</div>-->
+    <!-- 底栏 Start-->
+  </div>
+
+<script type="text/javascript" src="../../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../js/laydate/laydate.js"></script>
+<script type="text/javascript" src="../../js/ajax.js"></script>
+<script type="text/javascript" src="../../js/json2.js"></script>
+
+<script type="text/javascript">
+    function dele(id) {
+        if (confirm("是否删除该班级(该班级下的所有学生将被删除)？")) {    //这样会有一个提示信息
+            ajax("teamMain.ashx?json=" + id, function (resText) {
+            });
+        }
+
+    }
+</script>
+
+
+</body>
+</html>

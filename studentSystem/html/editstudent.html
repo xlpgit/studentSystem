@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>学生管理_编辑</title>
+  <link rel="stylesheet" href="../css/cssreset.css">
+  <link rel="stylesheet" href="../css/main.css">
+   <style type="text/css">
+    .sp
+    {
+        color:Red;
+        }
+  </style>
+</head>
+<body>
+  <!-- 顶栏 start -->
+  #parse("../include/header.htm")
+  <!-- 顶栏 end -->
+  <div class="main-content clearfix">
+    <!-- 主菜单 start -->
+    #parse("../include/nav.htm")
+    <!-- 主菜单 end -->
+    <!-- 主容器 start -->
+      <div class="container">
+       <h3 class="current-title">编辑学生信息</h3>
+      <div class="table-content">
+      <form action="/studentEdit.ashx">
+      <input type="hidden" name="UpdateID" value="$Data.student.STUDENT_ID" />
+        <table class="table table-bordered">
+         <tbody>
+            <tr>
+              <td>姓名</td>
+              <td>
+                <input type="text" value="$Data.student.NAME" name="name" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')" maxlength="10"/>
+              </td>
+            </tr>   
+            <tr>
+              <td>性别</td>
+              <td>
+                <input type="text" value="$Data.student.SEX" name="sex" id="sexId" maxlength="2"/>
+                <span id="se" class="sp" ></span>
+              </td>
+            </tr>
+            <tr>            
+              <td>生日</td>
+              <td>
+                  <input type="text" value="$Data.student.BIRTHDAY" name="birth" id="birthId" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})"/>
+                  <!--<span id="bir" class="sp" style="display:none">生日不可为空</span>-->
+              </td>
+            </tr>
+            <tr>
+              <td>身高</td>
+               <td>
+                  <input type="text" value="$Data.student.HEIGHT" name="height" maxlength="5"/>
+              </td>
+            </tr>
+            <tr>
+              <td>所属班级</td>
+               <td>
+                 <select name="team">   应该遍历班级
+                    #foreach($p in $Data.teams)
+                      #if($Data.student.CLASS_ID ==$p.CLASS_ID)
+                       <option value="$p.CLASS_ID" selected="selected">$p.NAME</option>
+                      #else
+                      <option value="$p.CLASS_ID">$p.NAME</option>
+                      #end
+                     #end
+                   </select>
+                   </td>
+                   </tr>
+               <tr>
+              <td>是否特长生</td>
+               <td>
+                  <select name="special">
+                     #if($Data.student.IS_SPECIAL=="是")                  
+                      <option value="否" >否</option>
+                      <option value="是" selected="selected">是</option>
+                      #else
+                      <option value="否" selected="selected">否</option>
+                      <option value="是" >是</option>
+                      #end
+
+                  </select>
+              </td>
+            </tr>
+          </tbody>
+       </table>
+       <div class="btn-content">
+          <input type="submit" class="btn" value="确定"/>
+          <a href="javascript:history.go(-1)" class="btn">返回</a>
+      </div>
+     </form>
+   </div>
+      <!-- 删除此行注释，在此添加对应的div -->
+
+
+
+    </div>
+    <!-- 主容器 end -->
+    <!-- 底栏 Start-->
+    #parse("../include/footer.htm")
+    <!-- 底栏 Start-->
+  </div>
+
+<script src="../js/jquery-2.1.1.min.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+
+<script type="text/javascript">
+    //验证生日
+//    $("#birthId").blur("blur", function () {
+//        var birth = document.getElementById("birthId").value;
+//        if (birth == "") {
+//            document.getElementById("bir").style.display = "block";
+//        }
+//        else {
+//            document.getElementById("bir").style.display = "none";
+//        }
+//    });
+
+    //验证性别
+    $("#sexId").blur("blur", function () {
+        var sex = document.getElementById("sexId").value;
+        if (sex == "") {
+            document.getElementById("se").innerHTML = "性别不可为空";
+        } else {
+            if (sex == ("男") || sex == ("女")) {
+                document.getElementById("se").innerHTML = "";
+            }
+            else {
+                document.getElementById("se").innerHTML = "请输入男或女";
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

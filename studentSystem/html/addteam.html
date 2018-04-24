@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>班级管理_增加</title>
+  <link rel="stylesheet" href="../css/cssreset.css">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <!-- 顶栏 start -->
+  #parse("../include/header.htm")
+  <!-- 顶栏 end -->
+  <div class="main-content clearfix">
+    <!-- 主菜单 start -->
+    #parse("../include/nav.htm")
+    <!-- 主菜单 end -->
+    <!-- 主容器 start -->
+      <div class="container">
+       <h3 class="current-title">增加班级</h3>
+      <div class="table-content">
+      <!--<form action="/teamAdd.ashx">-->
+        <table class="table table-bordered">
+         <tbody>
+            <tr>
+              <td>班级名称</td>
+              <td>
+                <input type="text" name="name" id="nameId" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')" maxlength="10"/>              
+              </td>
+            </tr>            
+            <tr>
+              <td>教室号</td>
+                <td>
+                   <input type="text" name="classroom" id="classroomId" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')" maxlength="10"/>                
+                </td>
+            </tr>
+            <tr>
+              <td>班主任老师</td>
+              <td>
+                <select name="teacher" id="teacherId">    
+                <option>请选择</option>
+                   #foreach($p in $Data.teachers)                 
+                  <option value="$p.TEACHER_ID">$p.NAME</option>     
+                  #end            		    
+                </select>
+              </td>
+            </tr>
+          </tbody>
+       </table>
+       <div class="btn-content">
+          <!--<input type="submit" class="btn" value="确定"/>-->
+          <input type="submit" class="btn" value="确定" onclick="addTeam()"/>
+          <input type="hidden" value="$Data.IsPostBack" id="IsPostBack" />
+          <a href="javascript:history.go(-1)" class="btn">返回</a>
+      </div>
+     <!--</form>-->
+   </div>
+    </div>
+    <!-- 主容器 end -->
+    <!-- 底栏 Start-->
+   #parse("../include/footer.htm")
+    <!-- 底栏 Start-->
+  </div>
+
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../js/laydate/laydate.js"></script>
+<script type="text/javascript" src="../js/ajax.js"></script>
+<script type="text/javascript" src="../js/json2.js"></script>
+
+
+<script type="text/javascript">
+    function addTeam() {
+        var name = document.getElementById("nameId").value;
+        var classroom = document.getElementById("classroomId").value;
+        var teacherId = document.getElementById("teacherId").value;
+      
+        if (!(teacherId == "请选择")) {
+            var json = "{\"name\":\"" + name + "\",\"classroom\":\"" + classroom + "\",\"teacherId\":\"" + teacherId + "\"}";
+            ajax("teamAddJson.ashx?json=" + json + "&IsPostBack=" + IsPostBack, function (resText) {
+                window.location = "teamMain.ashx";
+            });
+        }
+        else {
+            teacherId = null;
+            var json = "{\"name\":\"" + name + "\",\"classroom\":\"" + classroom + "\",\"teacherId\":" + teacherId + "}";
+                ajax("teamAddJson.ashx?json=" + json + "&IsPostBack=" + IsPostBack, function (resText) {
+                window.location = "teamMain.ashx";
+            });
+        }
+        
+    }
+</script>
+
+
+
+
+</body>
+</html>

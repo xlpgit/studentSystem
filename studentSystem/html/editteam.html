@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>班级管理_编辑</title>
+  <link rel="stylesheet" href="../css/cssreset.css">
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <!-- 顶栏 start -->
+   #parse("../include/header.htm")
+  <!-- 顶栏 end -->
+  <div class="main-content clearfix">
+    <!-- 主菜单 start -->
+    #parse("../include/nav.htm")
+    <!-- 主菜单 end -->
+   <!-- 主容器 start -->
+      <div class="container">
+       <h3 class="current-title">增加班级</h3>
+      <div class="table-content">
+      <form action="/teamEdit.ashx">
+      <input type="hidden" name="UpdateID" value="$Data.team.CLASS_ID" />
+        <table class="table table-bordered">
+         <tbody>
+            <tr>
+              <td>班级名称</td>
+              <td>
+                <input type="text" name="name" value="$Data.team.NAME" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')" maxlength="10"/>                
+              </td>
+            </tr>            
+            <tr>
+              <td>教室号</td>
+                <td>
+                   <input type="text" name="classroom" value="$Data.team.CLASSROME" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')" maxlength="10"/>                 
+                </td>
+            </tr>
+            <tr>
+              <td>班主任老师</td>
+              <td>
+                <select name="teacher">
+                 #foreach($p in $Data.teachers)
+                        #if($Data.team.TEACHER_ID == $p.TEACHER_ID)
+                        <option value="$p.TEACHER_ID" selected="selected">$p.NAME</option>
+                        #else
+                        <option value="$p.TEACHER_ID">$p.NAME</option>
+                        #end
+                 #end            
+                </select>
+              </td>
+            </tr>
+          </tbody>
+       </table>
+       <div class="btn-content">
+          <input type="submit" class="btn" value="确定"/>
+          <a href="javascript:history.go(-1)" class="btn">返回</a>
+      </div>
+     </form>
+   </div>
+      <!-- 删除此行注释，在此添加对应的div -->
+    </div>
+    <!-- 主容器 end -->
+    <!-- 底栏 Start-->
+    #parse("../include/footer.htm")
+    <!-- 底栏 Start-->
+  </div>
+
+<script src="../js/jquery-2.1.1.min.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+</body>
+</html>

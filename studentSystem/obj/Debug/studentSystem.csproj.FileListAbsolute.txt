@@ -1,0 +1,6 @@
+G:\User\Visual Studio 2010\Projects\studentSystem\studentSystem\bin\studentSystem.dll
+G:\User\Visual Studio 2010\Projects\studentSystem\studentSystem\bin\studentSystem.pdb
+G:\User\Visual Studio 2010\Projects\studentSystem\studentSystem\obj\Debug\studentSystem.dll
+G:\User\Visual Studio 2010\Projects\studentSystem\studentSystem\obj\Debug\studentSystem.pdb
+G:\User\Visual Studio 2010\Projects\studentSystem\studentSystem\bin\NVelocity.dll
+g:\user\visual studio 2010\Projects\studentSystem\studentSystem\obj\Debug\studentSystem.csprojResolveAssemblyReference.cache

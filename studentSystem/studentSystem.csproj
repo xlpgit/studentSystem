@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A44B6849-7372-4737-95D7-57601E831520}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>studentSystem</RootNamespace>
+    <AssemblyName>studentSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NVelocity">
+      <HintPath>E:\大三\大三下\网络应用开发与技术\增删改\WebApplication2\bin\NVelocity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\cssreset.css" />
+    <Content Include="css\main.css" />
+    <Content Include="html\addstudent.html" />
+    <Content Include="html\addteacher.html" />
+    <Content Include="html\addteam.html" />
+    <Content Include="html\editstudent.html" />
+    <Content Include="html\editteacher.html" />
+    <Content Include="html\editteam.html" />
+    <Content Include="html\error.html" />
+    <Content Include="html\index.html" />
+    <Content Include="html\login.html" />
+    <Content Include="html\student.html" />
+    <Content Include="html\teacher.html" />
+    <Content Include="html\team.html" />
+    <Content Include="images\bac.jpg" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\user.png" />
+    <Content Include="include\footer.htm" />
+    <Content Include="include\header.htm" />
+    <Content Include="include\nav.htm" />
+    <Content Include="js\ajax.js" />
+    <Content Include="js\jquery-2.1.1.min.js" />
+    <Content Include="js\json2.js" />
+    <Content Include="js\laydate\laydate.js" />
+    <Content Include="js\laydate\need\laydate.css" />
+    <Content Include="js\laydate\skins\dahong\icon.png" />
+    <Content Include="js\laydate\skins\dahong\laydate.css" />
+    <Content Include="js\laydate\skins\default\icon.png" />
+    <Content Include="js\laydate\skins\default\laydate.css" />
+    <Content Include="js\laydate\skins\molv\icon.png" />
+    <Content Include="js\laydate\skins\molv\laydate.css" />
+    <Content Include="Loginout.ashx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="identifyingCode.ashx.cs">
+      <DependentUpon>identifyingCode.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Loginout.ashx.cs">
+      <DependentUpon>Loginout.ashx</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="student.cs" />
+    <Compile Include="studentAddJson.ashx.cs">
+      <DependentUpon>studentAddJson.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="studentSearch.ashx.cs">
+      <DependentUpon>studentSearch.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="teacher.cs" />
+    <Compile Include="teacherAddJson.ashx.cs">
+      <DependentUpon>teacherAddJson.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="team.cs" />
+    <Compile Include="teamAdd.ashx.cs">
+      <DependentUpon>teamAdd.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="teamAddJson.ashx.cs">
+      <DependentUpon>teamAddJson.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="teamEdit.ashx.cs">
+      <DependentUpon>teamEdit.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="teamMain.ashx.cs">
+      <DependentUpon>teamMain.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="teacherAdd.ashx.cs">
+      <DependentUpon>teacherAdd.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="CommonHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlHelper.cs" />
+    <Compile Include="studentAdd.ashx.cs">
+      <DependentUpon>studentAdd.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="studentEdit.ashx.cs">
+      <DependentUpon>studentEdit.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="studentMain.ashx.cs">
+      <DependentUpon>studentMain.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="teacherEdit.ashx.cs">
+      <DependentUpon>teacherEdit.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="teacherMain.ashx.cs">
+      <DependentUpon>teacherMain.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="teacherSearch.ashx.cs">
+      <DependentUpon>teacherSearch.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="teamSearch.ashx.cs">
+      <DependentUpon>teamSearch.ashx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="studentMain.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="studentAdd.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="studentEdit.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="teacherMain.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="teacherAdd.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="teacherEdit.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="teacherSearch.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="teamMain.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="teamAdd.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="teamEdit.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="teamSearch.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="studentSearch.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="teacherAddJson.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="teamAddJson.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="studentAddJson.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="identifyingCode.ashx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56591</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

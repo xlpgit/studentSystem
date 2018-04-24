@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>教师管理</title>
+  <link rel="stylesheet" href="../css/cssreset.css">
+  <link rel="stylesheet" href="../css/main.css">
+     <style type="text/css">
+        .current {
+        font-weight:bold;
+        background: #353535;
+        color   : #FFD700;
+        }
+    </style>
+</head>
+<body>
+  <!-- 顶栏 start -->
+  #parse("../include/header.htm")
+  <!-- 顶栏 end -->
+  <div class="main-content clearfix">
+    <!-- 主菜单 start -->
+    #parse("../include/nav.htm")
+    <!-- 主菜单 end -->
+    <!-- 主容器 start -->
+    <div class="container">
+      <h3 class="current-title">教师管理信息</h3>  
+      <div class="search-content">
+        <form action="/teacherSearch.ashx">
+          <label>搜索类型：</label>
+            <select name="search" id="">           
+              <option value="姓名">姓名</option>
+              <option value="电话">电话</option>
+            </select>
+            <input type="text" class="w150" name="searchText" maxlength="20" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')"/>
+            <input type="submit" class="btn" value="查询"/>
+            <a href="/teacherAddJson.ashx"  class="btn">新增</a>   <!--新增和删除用ajax-->
+        </form>
+      </div>
+       <!-- 结果容器 start -->
+      
+    <!-- 表格容器 start -->
+     <div class="table-content">
+       <table class="table table-bordered">
+         <thead>
+           <tr>
+             <th>姓名</th>
+             <th>电话</th>
+             <th>邮箱</th>
+             <th>生日</th>
+             <th>操作</th>
+           </tr>
+         </thead>
+         <tbody>
+          #foreach($p in $Data.teachers) 
+           <tr>
+             <td>$p.NAME</td>
+             <td>$p.PHONE</td>
+             <td>$p.EMAIL</td>
+             <td>
+             $p.BIRTHDAY
+             </td>
+              <td>	      
+               <a href="/teacherEdit.ashx?EditID=$p.TEACHER_ID">编辑</a>
+               <!--<a href="/teacherMain.ashx?DelID=$p.TEACHER_ID" onclick="return confirm('是否删除该老师信息？');">删除</a>-->
+               <a href="" onclick="dele($p.TEACHER_ID);">删除</a>  
+             </td>
+           </tr>   
+           #end         
+         </tbody>
+       </table>
+       <div class="page">
+        <!--<a href="" class="active">1</a><a href="">2</a><a href="">3</a><a href="">4</a><a href="">5</a>-->
+        <a href="/teacherMain.ashx?PageNumber=1"><<</a>&nbsp
+        #if($Data.PageNumber>1)
+            #set($PrePageNumber = $Data.PageNumber - 1)
+        <a  href="/teacherMain.ashx?PageNumber=$PrePageNumber"><</a>
+        #end
+
+        #foreach($pd in $Data.PageData)       <!--除了有数字之外，还得有链接-->
+            #if($pd.Title==$Data.PageNumber)    <!-- 选中之后显示不同的颜色-->
+            <a class="current" href="$pd.Href">$pd.Title</a>
+            #else
+             <a href="$pd.Href">$pd.Title</a>
+            #end
+         #end
+
+        #if($Data.PageNumber<$Data.pageCount)
+            #set($NextPageNumber=$Data.PageNumber+1)
+        <a href="teacherMain.ashx?PageNumber=$NextPageNumber">></a>&nbsp  
+        #end
+        <a href="teacherMain.ashx?PageNumber=$Data.PageCount">>></a>
+      </div>
+     </div>
+ <!-- 表格容器 end -->
+      </div>
+      <!-- 结果容器 end -->
+    </div>
+   
+    <!-- 底栏 Start-->
+    #parse("../include/footer.htm")
+    <!-- 底栏 Start-->
+  </div>
+<script type="text/javascript" src="../js/laydate/laydate.js"></script>
+<script type="text/javascript" src="../../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../js/laydate/laydate.js"></script>
+<script type="text/javascript" src="../../js/ajax.js"></script>
+<script type="text/javascript" src="../../js/json2.js"></script>
+
+<script type="text/javascript">
+    function dele(id) {
+        if (confirm("确认删除")) {    //这样会有一个提示信息
+            ajax("teacherMain.ashx?json=" + id, function (resText) {
+            });
+        }
+   
+ }
+</script>
+
+
+
+</body>
+</html>

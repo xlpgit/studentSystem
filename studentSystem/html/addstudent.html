@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>学生管理_增加</title>
+  <link rel="stylesheet" href="../css/cssreset.css"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <style type="text/css">
+    .sp
+    {
+        color:Red;
+        }
+  </style>
+</head>
+<body>
+  <!-- 顶栏 start -->
+   #parse("../include/header.htm")
+  <!-- 顶栏 end -->
+  <div class="main-content clearfix">
+    <!-- 主菜单 start -->
+     #parse("../include/nav.htm")
+    <!-- 主菜单 end -->
+    <!-- 主容器 start -->
+      <div class="container">
+       <h3 class="current-title">添加学生</h3>
+      <div class="table-content">
+      <!--<form action="/studentAdd.ashx">-->
+        <table class="table table-bordered">
+         <tbody>
+            <tr>
+              <td>姓名</td>
+              <td>
+                <input type="text"  name="name" id="nameId" onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')" maxlength="10"/>
+              </td>
+            </tr>   
+            <tr>
+              <td>性别</td>
+              <td>
+                <input type="text"  name="sex" id="sexId" onclick="sexDis()" maxlength="2" />
+                <span id="se" class="sp" ></span>
+              </td>
+            </tr> 
+            <tr>           
+              <td>生日</td>
+              <td>
+                  <input type="text" name="birth" id="birthId" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})"/>
+                 <!-- <span id="bir" class="sp" style="display:none">生日不可为空</span>-->
+              </td>
+            </tr>
+            <tr>
+              <td>身高</td>
+               <td>
+                  <input type="text" name="height" id="heightId"  onkeyup="value=value.replace(/[^0-9\u4E00-\u9FA5\.]/g,'')" maxlength="5"/>
+              </td>
+            </tr>
+            <tr>
+              <td>所属班级</td>
+               <td>
+                 <select name="class_name" id="banId">
+                    <option>请选择</option> 
+                    #foreach($p in $Data.teams) 
+                    <option value="$p.CLASS_ID">$p.NAME</option>   
+                    #end                
+                 </select> 
+
+              </td>
+            </tr>
+             <tr>
+              <td>是否特长生</td>
+               <td>
+                  <select name="special" id="specialId">
+                      <option value="否">否</option>
+                      <option value="是">是</option>
+                  </select>
+              </td>
+            </tr>
+          </tbody>
+       </table>
+       <div class="btn-content">
+          <!--<input type="submit" class="btn" value="确定"/>-->
+          <input type="submit" class="btn" value="确定" onclick="addStudent()"/>
+          <input type="hidden" value="$Data.IsPostBack" id="IsPostBack"  name="IsPostBack"/>
+          <a href="javascript:history.go(-1)" class="btn">返回</a>
+      </div>
+     <!--</form>-->
+   </div>
+
+
+
+    </div>
+    <!-- 主容器 end -->
+    <!-- 底栏 Start-->
+     #parse("../include/footer.htm")
+    <!-- 底栏 Start-->
+  </div>
+<script src="../js/laydate/laydate.js"></script>
+<script src="../js/jquery-2.1.1.min.js"></script>
+<script src="../js/laydate/laydate.js"></script>
+<script type="text/javascript" src="../js/ajax.js"></script>
+<script type="text/javascript" src="../js/json2.js"></script>
+
+
+<script type="text/javascript">
+    function addStudent() {
+        var name = document.getElementById("nameId").value;
+        var sex = document.getElementById("sexId").value;
+        var birthday = document.getElementById("birthId").value;
+        var height = document.getElementById("heightId").value;
+        var classId = document.getElementById("banId").value;
+        var isSpecial = document.getElementById("specialId").value;
+        //        var IsPostBack = document.getElementById("IsPostBackId").value;
+        if (!(classId == "请选择")) {
+            var json = "{\"name\":\"" + name + "\",\"sex\":\"" + sex + "\",\"birthday\":\"" + birthday + "\",\"height\":\"" + height + "\",\"classId\":" + classId + ",\"isSpecial\":\"" + isSpecial + "\"}";
+            //    resText为后台返回的数据
+            ajax("studentAddJson.ashx?json=" + json + "&IsPostBack=" + IsPostBack, function (resText) {    //把json传到后台,resText为后台返回来的数据
+                window.location = "studentMain.ashx";  //跳转页面
+            })
+        }
+        else {
+            classId = null;
+            var json = "{\"name\":\"" + name + "\",\"sex\":\"" + sex + "\",\"birthday\":\"" + birthday + "\",\"height\":\"" + height + "\",\"classId\":\"" + classId + "\",\"isSpecial\":\"" + isSpecial + "\"}";
+            //    resText为后台返回的数据
+            ajax("studentAddJson.ashx?json=" + json + "&IsPostBack=" + IsPostBack, function (resText) {    //把json传到后台,resText为后台返回来的数据
+                window.location = "studentMain.ashx";  //跳转页面
+            })
+        }
+    }
+//    //验证生日
+//    $("#birthId").blur("blur", function () {
+//        var birth = document.getElementById("birthId").value;
+//        if (birth == "") {
+//            document.getElementById("bir").style.display = "block";
+//        }
+//        else {
+//            document.getElementById("bir").style.display = "none";
+//        }
+//    });
+
+    //验证性别
+    $("#sexId").blur("blur", function () {
+        var sex = document.getElementById("sexId").value;
+        if (sex == "") {
+            document.getElementById("se").innerHTML = "性别不可为空";
+        } else {
+            if (sex == ("男") || sex == ("女")) {
+                document.getElementById("se").innerHTML = "";
+            }
+            else {
+                document.getElementById("se").innerHTML = "请输入男或女";
+            }
+        }
+    })
+        
+
+
+</script>
+
+
+
+</body>
+</html>
